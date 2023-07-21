@@ -8,6 +8,10 @@ class ErrorCode(Enum):
         status=status.HTTP_400_BAD_REQUEST, 
         message='An unexpected error occurred, try again'
     )
+    E01 = dict(
+        status=status.HTTP_400_BAD_REQUEST, 
+        message='status does not exist'
+    )
     B01 = dict(
         status=status.HTTP_400_BAD_REQUEST,
         message='The email already exists'
@@ -15,6 +19,14 @@ class ErrorCode(Enum):
     B02 = dict(
         status=status.HTTP_404_NOT_FOUND,
         message='The email does not exist'
+    )
+    B03 = dict(
+        status=status.HTTP_400_BAD_REQUEST,
+        message='The person does not exists'
+    )
+    B04 = dict(
+        status=status.HTTP_400_BAD_REQUEST,
+        message='The task does not exists'
     )
 
     @classmethod

@@ -1,4 +1,5 @@
 from persons.models import Person
+import uuid
 
 def filter_person_by_email(
         *,
@@ -8,3 +9,14 @@ def filter_person_by_email(
         email=email
     )
     return persons
+
+def filter_person_by_id(
+        *,
+        id: uuid
+)-> 'QuerySet[Person]':
+    persons = Person.objects.filter(
+        pk=id
+    )
+    return persons
+
+
