@@ -13,7 +13,7 @@ migrate: ## Run django migrate command
 shell: ## Run django shell_plus command
 	docker compose run web python manage.py shell
 
-test: ## Run django shell_plus command ARGS=--fixtres
+test: ## Run django shell_plus command ARGS=--fixtres -v for scenary details
 	docker compose run web pytest $(ARGS)
 
 # docker exec ed2c09e98e46 python manage.py loaddata /app/fixtures/task_status.json
