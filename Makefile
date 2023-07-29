@@ -19,3 +19,6 @@ test: ## Run django shell_plus command ARGS=--fixtres -v for scenary details
 # docker exec ed2c09e98e46 python manage.py loaddata /app/fixtures/task_status.json
 docker-exec: ## Run django shell_plus command make docker-exec CONTAINER_ID=244ff84b4b81 ARGS=pytestmkw
 	docker exec -it $(CONTAINER_ID) $(ARGS)
+
+docker-attach: ## docker attach
+	docker attach --detach-keys ctrl-d $(CONTAINER_ID)

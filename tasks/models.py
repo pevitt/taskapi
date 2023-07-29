@@ -2,13 +2,14 @@ from django.db import models
 from utils.models import BaseModel, BaseModelUUID
 from persons.models import Person
 
+
 # Create your models here.
 class TaskStatus(BaseModel):
     name = models.CharField(
         max_length=100
     )
     description = models.TextField(
-        null=True, 
+        null=True,
         blank=True
     )
 
@@ -17,9 +18,10 @@ class TaskStatus(BaseModel):
         verbose_name = 'Task Status'
         verbose_name_plural = 'Task Statuses'
         ordering = ['created_at']
-    
+
     def __str__(self):
         return f'{self.name}'
+
 
 class Task(BaseModelUUID):
     person = models.ForeignKey(
@@ -54,6 +56,6 @@ class Task(BaseModelUUID):
                 name='title_idx'
             )
         ]
-    
+
     def __str__(self):
         return f'{self.title}'

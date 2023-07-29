@@ -29,4 +29,4 @@ COPY . .
 EXPOSE 8000
 
 # Start the app with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "mo_credits.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "task_manager.wsgi:application"]

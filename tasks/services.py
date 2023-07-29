@@ -6,8 +6,8 @@ from typing import Any, Dict, List, Optional, Union
 
 from utils.exceptions import TaskManagerException, ErrorCode
 
-def get_task_status_list()-> Dict[str, Any]:
 
+def get_task_status_list() -> Dict[str, Any]:
     task_status_qry = task_status_selector.get_task_status_list()
 
     task_data = task_status_qry.values(
@@ -18,12 +18,12 @@ def get_task_status_list()-> Dict[str, Any]:
 
     return list(task_data)
 
-def create_task(
-    person_id: uuid,
-    title: str,
-    description: str,
-)-> Dict[str, Any]:
 
+def create_task(
+        person_id: uuid,
+        title: str,
+        description: str,
+) -> Dict[str, Any]:
     person_qry = person_selector.filter_person_by_id(
         id=person_id
     )
@@ -35,12 +35,11 @@ def create_task(
     )
     if not task_status:
         raise TaskManagerException(ErrorCode.E01)
-    
+
     person = person_qry.first()
     order = task_status_selector.get_order_by_person(
         person=person
     ).count()
-
 
     task = Task.objects.create(
         person=person,
@@ -61,10 +60,11 @@ def create_task(
 
     return task_data
 
+
 def get_task_list(
         person_id: uuid,
-        status: Optional[str]=None
-)->List[Dict[str, Any]]:
+        status: Optional[str] = None
+) -> List[Dict[str, Any]]:
     person_qry = person_selector.filter_person_by_id(
         id=person_id
     )
@@ -72,7 +72,7 @@ def get_task_list(
         raise TaskManagerException(ErrorCode.B03)
 
     person = person_qry.first()
-    
+
     task_list = task_status_selector.get_task_list_by_person(
         person=person,
         status=status
@@ -80,26 +80,26 @@ def get_task_list(
 
     return list(task_list)
 
+
 def update_task_status(
         task_id: uuid,
         status_id: int
-)-> Dict[str, Any]:
+) -> Dict[str, Any]:
     task_qry = Task.objects.filter(
         id=task_id
     )
     if not task_qry.exists():
         raise TaskManagerException(ErrorCode.B04)
-    
+
     task_status_qry = task_status_selector.get_task_status_by_id(
         status_id=status_id
     )
 
     if not task_status_qry.exists():
         raise TaskManagerException(ErrorCode.E01)
-    
-    
+
     task = task_qry.first()
-    
+
     task.status = task_status_qry.first()
     task.save()
 
@@ -115,15 +115,16 @@ def update_task_status(
 
     return task_data
 
+
 def get_task_person_indicator(
         person_id: uuid
-)-> Dict:
+) -> Dict:
     person_qry = person_selector.filter_person_by_id(
         id=person_id
     )
     if not person_qry.exists():
         raise TaskManagerException(ErrorCode.B03)
-    
+
     person = person_qry.first()
 
     task_indicator = task_status_selector.get_tasks_indicator_by_person(

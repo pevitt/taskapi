@@ -84,6 +84,19 @@ def validate_person_get_response(
     assert api_get_request.status_code == status_code
     assert api_get_request.json()['email'] == email
 
+@then(
+    parsers.parse(
+        'I receive a response error with status code {status_code:d}'
+    )
+)
+def validate_person_get_response(
+        api_get_request,
+        status_code: int
+):
+    """
+    Validate person get response
+    """
+    assert api_get_request.status_code == status_code
 
 @then(
     parsers.parse(

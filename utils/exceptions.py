@@ -25,7 +25,7 @@ class ErrorCode(Enum):
         message='The person does not exists'
     )
     B04 = dict(
-        status=status.HTTP_400_BAD_REQUEST,
+        status=status.HTTP_404_NOT_FOUND,
         message='The task does not exists'
     )
 
