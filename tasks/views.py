@@ -19,8 +19,7 @@ class TaskStatusView(
 
         data = task_service.get_task_status_list()
         output_serializer = self.OutputSerializer(data=data, many=True)
-        import pdb;
-        pdb.set_trace()
+
         try:
             output_serializer.is_valid(raise_exception=True)
         except serializers.ValidationError as e:
