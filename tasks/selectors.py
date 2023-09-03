@@ -1,7 +1,9 @@
 from tasks.models import TaskStatus, Task
 from persons.models import Person
 from typing import Any, Dict, List, Optional, Union
-from django.db.models import F, Subquery, OuterRef, Count
+from django.db.models import F, Subquery, OuterRef, Count, Prefetch
+from django.contrib.postgres.aggregates import ArrayAgg, JSONBAgg
+
 
 
 
@@ -45,7 +47,7 @@ def get_task_list_by_person(
     tasks = tasks.order_by(
         'order'
     )
-    
+
     tasks = tasks.annotate(
         person_name=F('person__first_name'),
         person_email=F('person__email'),
@@ -65,7 +67,7 @@ def get_task_list_by_person(
 def get_tasks_indicator_by_person(
         person: Person
 )-> Dict[str, Any]:
-    
+
     tasks = Task.objects.filter(
         person=person
     ).values(
@@ -73,7 +75,22 @@ def get_tasks_indicator_by_person(
     ).annotate(
         count=Count('id')
     )
-   
+
     task_count_dict = {task.get('name'): task.get('count') for task in tasks}
 
     return task_count_dict
+
+'''
+Crear un selector que traiga la info de la persona con sus tasks usando el related_name
+'''
+def get_person_with_tasks(
+        *,
+        person_id: int
+)-> Dict[str, Any]:
+    person = Person.objects.filter(
+        pk=person_id
+    ).prefetch_related(
+        Prefetch('tasks', queryset=Task.objects.all())
+    )
+    # import pdb; pdb.set_trace()
+    return person.first()

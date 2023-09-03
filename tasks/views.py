@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from utils.exceptions import TaskManagerException, ErrorCode
 from tasks import services as task_service
+from tasks import selectors as task_selector
 from tasks.serializers import TaskInputSerializer, TaskOutputSerializer, TaskOutputFullSerializer
 
 
@@ -99,6 +100,11 @@ class TaskViewIndicator(
 ):
 
     def get(self, request, person_id):
+
+        # data = task_selector.get_person_with_tasks(
+        #     person_id=person_id
+        # )
+
         data = task_service.get_task_person_indicator(
             person_id=person_id
         )

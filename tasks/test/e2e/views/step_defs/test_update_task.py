@@ -2,7 +2,7 @@
 from pytest_bdd import given, parsers, scenarios, then
 import uuid
 
-escenarios = scenarios('../features/update_task.feature')
+scenarios('../features/update_task.feature')
 ENDPOINT = '/api/tasks/'
 
 @given(

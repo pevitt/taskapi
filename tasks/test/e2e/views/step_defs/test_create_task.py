@@ -2,7 +2,7 @@
 from pytest_bdd import given, parsers, scenarios, then
 from mixer.backend.django import mixer
 
-escenarios = scenarios('../features/create_task.feature')
+scenarios('../features/create_task.feature')
 ENDPOINT = '/api/tasks/'
 
 @given(
